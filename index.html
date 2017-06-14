@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lucky number</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel=stylesheet href="main.css">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+    <div id="content-group">
+        <div id="header">
+            <div class="bg-header"></div>
+            <div class="logo"><img src="image/LOGO1.png"></div>
+            <div class="mytitle" id="title">Chương Trình Xổ Số May Mắn</div>
+            
+            <div style="" class="main_result" id="result_number"><span class="text">0000</span></div>
+            <div id="priceName" class="priceName"></div>
+            <!-- <div class="button_box">
+                
+                <input type = "button" title ="Quay số" id="btn_start" value="Tiếp tục" onclick="continueDrawing();">
+            </div> -->
+        </div>
+        <!-- config  -->
+        <div class="config_area" >
+            <div id="config_div">
+                <!-- custom -->
+                <div id="sidebar" class="custom">
+                    <div class="btn-close"><i class="fa fa-times-circle"></i></div>
+                    <h2>CUSTOM SETTING</h2>
+                    <div class="col-1-2 content-left">
+                        <button id="nav-btn">
+                        <i class="fa fa-cogs"></i>
+                        </button>
+                        <div class="form-group">
+                            <label>Chủ đề:</label>
+                            <input class="cfg" id="cfg_title" type="text" value="Chương Trình Xổ Số May Mắn">
+                        </div>
+                        <div class="form-group">
+                            <label>Số nhỏ nhất: </label>
+                            <input class="cfg" id="cfg_min_text" type="number" placeholder="Min value"  value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Số Lớn nhất: </label>
+                            <input class="cfg" id="cfg_max_text" type="number" placeholder="Max value" value="999">
+                        </div>
+                        <div class="form-group">
+                            <label>Số phiếu hiển thị: </label>
+                            <input class="cfg" id="cfg_num_display_text" type="number" placeholder="Min value"  value="12">
+                        </div>
+                        <div class="form-group">
+                            <label>Danh sách loại suy:</label>
+                            <input class="cfg" id="cfg_excluded_combo" type="text" placeholder="Danh sách loại suy" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Tên Giải: </label>
+                            <input class="cfg" id="cfg_price_name" type="text" placeholder="Min value" value="Giải">
+                        </div>
+                        <div class="form-group">
+                            <label>Số Giải:</label>
+                            <input class="cfg" id="cfg_price_num" type="number" placeholder="Max value" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Giải thưởng:</label>
+                            <input class="count" type = "button" title ="Thêm" value="+" onclick="addPrice();">
+                            <select id="pricesList" style="width: 100px;">
+                                <option value="1">1 Giải Đặc Biệt</option>
+                                <option value="1">1 Giải Nhất</option>
+                                <option value="2">2 Giải Nhì</option>
+                                <option value="3">3 Giải Khuyết Khích</option>
+                            </select>
+                            <input class="count" type = "button" title ="Xóa" value="-" onclick="removePrice();">
+                        </div>
+                        <div class="button_box">
+                            <!--  <input type = "button" title ="Quay số" value="Load KQ" onclick="loadResult2();"> -->
+                            <button class="export" id="btnExport" onclick="fnExcelReport();"> EXPORT </button>
+                            <button class="text-color jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'}">
+                            Chọn màu chữ
+                            </button>
+                        </div>
+                    </div>
+                    <!-- content right -->
+                    <div class="col-1-2 content-right">
+                       <!--  <ul class="count-ticket">
+                            <li>
+                                <span id="total_draw">123</span>
+                                <p>Tổng số phiếu</p>
+                                
+                            </li>
+                            <li>
+                                <span id="already_draw">123</span>
+                                <p>Số phiếu đã quay</p>
+                                
+                            </li>
+                            <li>
+                                <span id="remain_draw">123</span>
+                                <p>Số phiếu còn lại</p>
+                                
+                            </li>
+                        </ul> -->
+                        <div class="right_config">
+                            <div class="form-group">
+                                <label>Chọn giải quay: </label>
+                                <p><select id="runningPricesList"> </select></p>
+                            </div>
+                            <div class="form-group">
+                                <label>Kiểm tra giải: </label>
+                                <p>
+                                    <input id="exist_price_text" type="number" placeholder="Min value"  value="" >
+                                    <input class="btn-check" type = "button" value="Kiểm tra" onclick="checkNumberExist();">
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <label>Số giải mỗi lần quay:</label>
+                                <p>
+                                    <input id="cfg_no_auto_run" type="number" placeholder="Quay số tự động" value="1">
+                                </p>
+                            </div>
+                            <div class="form-group">
+                                <p>
+                                    <input type="checkbox" id="draw_by_digit" name="check" value="" />
+                                    <label for="draw_by_digit"><span></span>Quay từng số</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div><!-- /content right -->
+                    <div class="clearfix"></div>
+                </div><!-- /custom -->
+                <div class="result">
+                    <table id="result_table"></table>
+                </div>
+            </div><!-- /config div  -->  
+        </div> <!-- /config  -->  
+    </div>
+    <div id="footer-group">
+        <!-- footer nav -->
+        <div id="main-page">
+            <div class="container wrapper">
+                <a href="#" class="circle">
+                    <img onclick="startDrawing();" class="" src="image/start.png" alt="">
+                </a>
+            </div>
+            <div class="maincontent">
+                <div id="nav">
+                    <div class="col-1-4 nav-item"><a class="mainlink"><i class="fa fa-filter"></i>&nbsp;Kết quả</a></div>
+                    <div class="col-1-4 nav-item"><a class="mainlink"><i class="fa fa-th-large"></i>&nbsp;Hướng dẫn</a></div>
+                    <div class="col-1-4 nav-item"><a class="mainlink"><i class="fa fa-credit-card"></i>&nbsp;Chi phí</a></div>
+                    <div class="col-1-4 nav-item"><a class="mainlink"><i class="fa fa-user"></i>&nbsp;Đăng nhập</a></div>
+                </div>
+            </div>
+        </div>
+        <div id="next-page">
+            <div class="nextcontent container">
+                <a class="nextlink"><i class="fa fa-long-arrow-left"></i> Trở về</a>
+                    <p>content of huong dan</p>
+                    <p> Where does it come from?
+                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- /footer nav -->
+    </div>
+        <script src="js/jquery-1.12.1.min.js"></script>
+        <script src="js/jscolor.min.js"></script>
+        <script src="js/mainScript.js"></script>
+        <script>
+
+            var MIN = "1";
+            var MAX = "999";
+
+            var timerHandler;
+            var isRunning = false;
+            var isStarted = false;
+            var resultList = [];
+            var resultMatrix = {};
+            var iCount = 0;
+            var curResult = 0;
+            var pricesList;
+            var excludedList = [];
+            var total_draw =0;
+            var already_draw = 0;
+            var remain_draw =0;
+            var isDrawByDigit = false;
+            var curPriceName;
+            var byDigitCount = 0;
+            var RANDOM;
+            var config = {};
+
+            //loadResult();
+
+            loadConfig();
+            reset();
+
+            function reset(){
+
+                resultList = [];
+                iCount = 0;
+                curResult = 0;
+                excludedList = [];
+                processExcludedList();
+                pricesList = createPriceList();
+                updateStatistic();
+            }
+
+            function unsetFocus(){
+                //alert("clear focus");
+                $('#runningPricesList').focus();
+                $('#runningPricesList').blur();
+
+            }
+
+            function setTextColor(picker) {
+                $('#result_number').css('color', '#' + picker.toString());
+            }
+
+            function updateStatistic(){
+                total_draw = MAX - MIN + 1;
+                already_draw = excludedList.length;
+                remain_draw = total_draw - already_draw;
+                $('#total_draw').html(total_draw);
+                $('#already_draw').html(already_draw);
+                $('#remain_draw').html(remain_draw);
+            }
+
+            function formatNumberLength(num, length) {
+                var r = "" + num;
+                while (r.length < length) {
+                    r = "0" + r;
+                }
+                return r;
+            }
+
+            function processExcludedList() {
+                var strList = $('#cfg_excluded_combo').val();
+                if(strList.length>0){
+                    var items = strList.split(',');
+                    for(var i = 0; i < items.length; i++) {
+                        var num = parseInt(items[i]);
+                        excludedList.push(num);
+                    }
+
+                }
+
+            }
+
+            function makeZero(num, char) {
+                var r = "";
+                var temp = "" + num;
+                length = temp.length;
+
+                while (r.length < length) {
+                    if(char == null)
+                        r = "0" + r;
+                    else
+                        r = char + r;
+                }
+                return r;
+            }
+
+            function include(arr,obj) {
+
+                return (arr.indexOf(obj) != -1);
+            }
+
+            function pushResult(price_name, price_result){
+                price = {};
+                price["name"] = price_name;
+                price["result"] = price_result;
+                resultList.push(price);
+
+            }
+
+
+            function getRandomInt(min, max) {
+                var tmp;
+                do {
+                    tmp = Math.floor(Math.random() * (max - min + 1)) + min;
+                }while(include(excludedList,tmp));
+
+                return formatNumberLength(tmp, MAX.length);
+            }
+
+            function randomNumber(max) {
+                //random from 1 to max
+                var tmp = Math.floor(Math.random() * max) + 1;
+                return formatNumberLength(tmp, MAX.length);
+            }
+            function setContent(id, html) {
+                var x = document.getElementById(id);
+                x.innerHTML = html;
+            }
+
+            function getContent(id) {
+                var x = document.getElementById(id);
+                return x.innerHTML;
+            }
+
+            function afterDelay(id, html) {
+                setContent(id, html);
+                byDigitCount++;
+                if(byDigitCount == MAX.length){
+                    curResult = RANDOM;
+                    drawNumber(curResult);
+                    byDigitCount = 0;
+                }
+                //document.getElementById("b" + id).disabled = false;
+            }
+            function delay(id, time) {
+
+
+                document.getElementById("b" + id).disabled = true;
+                //HIỂN THỊ ẢNH CHỜ VÀ NHẠC
+                setContent(id, "<img id=\"i" + id + "\"src=\"Image/countdown" + id + ".gif\" height=\"130\"><embed src=\"sound.mp3\" hidden=true autostart=true loop=false>");
+                document.getElementById("i" + id).src = "Image/countdown" + id + ".gif";
+                setTimeout(afterDelay, time, id, RANDOM[id]);
+            }
+
+            function makeResultTable(resultList){
+
+                var ret = "";
+                var tmp1 = "", tmp2 = "";
+                var num_display = parseInt($('#cfg_num_display_text').val());
+                var start;
+                var end;
+
+                if(resultList.length > num_display){
+
+                    if(resultList.length < (num_display * 2 + 1) ) {
+                        start = 0;
+                        end = num_display;
+                    } else {
+                        end = resultList.length - num_display;
+                        start = resultList.length - num_display * 2;
+                    }
+
+                    for (var i = start; i < end; i++)
+                    {
+                        tmp1 += "<td  class=\"result_th\">" + resultList[i].short_name + "</td>";
+                        tmp2 += "<td  class=\"result_td\">" + resultList[i].result + "</td>";
+                    }
+                    ret += "<tr>" + tmp1 + "</tr>";
+                    ret += "<tr>" + tmp2 + "</tr>";
+
+                    if(resultList.length < (num_display * 2 + 1) ) {
+                        start = num_display;
+                        end = resultList.length;
+                    } else {
+                        start = resultList.length - num_display;
+                        end = resultList.length;
+                    }
+                    var tmp3 ="";
+                    var tmp4 ="";
+                    //alert("start:" + start);
+                    for (var i = start; i < end; i++)
+                    {
+                        tmp3 += "<td  class=\"result_th\">" + resultList[i].short_name + "</td>";
+                        tmp4 += "<td  class=\"result_td\">" + resultList[i].result + "</td>";
+                        //alert(tmp3);
+                    }
+                    ret += "<tr>" + tmp3 + "</tr>";
+                    ret += "<tr>" + tmp4 + "</tr>";
+
+                } else {
+
+                    start = resultList.length - num_display ;
+                    if(start < 0){
+                        start = 0;
+                    }
+
+                    for (var i = start; i < resultList.length; i++)
+                    {
+                        tmp1 += "<td  class=\"result_th\">" + resultList[i].short_name + "</td>";
+                        tmp2 += "<td  class=\"result_td\">" + resultList[i].result + "</td>";
+                    }
+                    ret += "<tr>" + tmp1 + "</tr>";
+                    ret += "<tr>" + tmp2 + "</tr>";
+                }
+
+                return ret;
+            }
+
+            function makeResultTable2(){
+
+                var ret = "";
+                var tmp1 = "", tmp2 = "";
+                var num_display = $('#cfg_num_display_text').val();
+
+
+                for(var index in resultMatrix){
+                    var start = resultMatrix[index]["result"].length - num_display;
+                    if(start < 0){
+                        start = 0;
+                    }
+                    ret += "<tr><td class=\"result_th\">" + resultMatrix[index].title + ": </td>"
+                    for(var i = start; i <resultMatrix[index]["result"].length; i++ ){
+                        ret += "<td class=\"result_td\">" + resultMatrix[index]["result"][i].result + "</td>";
+                    }
+                    ret += "</tr>";
+                }
+
+
+                return ret;
+            }
+
+            function setResult(number,isDrawByDigit){
+                if(isDrawByDigit){
+                    var strNumber = "" + number;
+                    var ret = "<table style=\"margin: 0 auto;\">";
+                    var tmp1 = "";
+                    var tmp2 = "";
+                    for (var i = 0; i < strNumber.length; i++)
+                    {
+                        tmp1 += "<td class=\"text\" id = \"" + i + "\">" + strNumber[i] + "</td>";
+                        tmp2 += "<td><input type=\"button\" class=\"button\" value=\"\" onclick=\"delay("
+                                + i + ",5000)\" id =\"b" + i + "\"/></td>";
+                    }
+                    ret += ("<tr>" + tmp1 + "</tr>");
+                    ret += ("<tr>" + tmp2 + "</tr></table>");
+                    setContent("result_number",ret);
+                } else {
+                    setContent("result_number","<span class=\"text\">" + number + "</span>");
+                }
+
+            }
+
+            function setRandom() {
+                var number;
+
+                curResult =  getRandomInt(parseInt(MIN),parseInt(MAX));
+                //setContent("result_number",curResult);
+                setResult(curResult, isDrawByDigit);
+
+            }
+
+
+            function autoRun(numPrice){
+                var result;
+                for(var i = 0; i < numPrice; i++){
+                    curResult = getRandomInt(parseInt(MIN),parseInt(MAX));
+                    drawNumber(curResult);
+                    if((iCount >= pricesList.length) || (remain_draw <= 0 )){
+                        break;
+                    }
+
+
+                }
+                // var ret = makeResultTable(resultList);
+                var ret = makeResultTable2();
+                setContent("result_table",ret);
+                //updateStatistic();
+
+            }
+
+            function drawNumber(number){
+
+                //pushResult(pricesList[iCount].short_name, number);
+
+                var priceName = pushResult2(resultMatrix,number);
+                curPriceName = priceName;
+
+                if(priceName != null) {
+                    var ret = makeResultTable(resultList);
+                    //var ret = makeResultTable2();
+
+                    setContent("result_table", ret);
+                    setContent("priceName", priceName);
+
+                    excludedList.push(parseInt(number));
+
+                    updateStatistic();
+                    storeResult();
+                    iCount++;
+                    return iCount;
+                } else {
+                    return 0;
+                }
+
+
+            }
+
+            function start(){
+                //should remove this line after demo
+                pricesList = createPriceList();
+                var strMsg = checkPriceComplete(resultMatrix);
+                if( strMsg == null) {
+                    isRunning = true;
+                    timerHandler = setInterval(setRandom, 20);
+                } else {
+                    alert(strMsg);
+                }
+            }
+
+
+            function stop(){
+
+                clearInterval(timerHandler);
+                var numAutoRun = $('#cfg_no_auto_run').val();
+                isRunning = false;
+                var num;
+                for(var i = 0; i< numAutoRun; i++ )
+                {
+                    if(remain_draw <= 0){
+                        alert("Đã xổ hết phiếu, dừng chương trình");
+                        return false;
+                    }
+                    curResult = getRandomInt(parseInt(MIN),parseInt(MAX));
+                    //setContent("result_number",curResult);
+                    if(drawNumber(curResult)== 0){
+                        return false;
+                    }
+                    setResult(curResult);
+
+
+
+                }
+                return true;
+
+            }
+
+            function startDrawing(){
+                if(!isStarted) {
+                    isStarted = true;
+                    $('#config_div').hide();
+                    reset();
+                    setContent("result_table","");
+                    setContent("title",$('#cfg_title').val());
+                    clearResult();
+                    copyPriceCombo();
+                    resultMatrix = createPriceList2();
+                    storeConfig();
+                    //alert(JSON.stringify(resultMatrix));
+                }
+
+            }
+
+            function continueDrawing(){
+                if(!isStarted) {
+                    isStarted = true;
+                    $('#config_div').hide();
+
+                }
+
+            }
+
+            function stopDrawing(){
+                if(isStarted) {
+                    isStarted = false;
+                    $('#config_div').show();
+                    //setContent("result_table","");
+
+                }
+
+            }
+
+
+            function clickRun(){
+                //$('#config_div').hide();
+                //alert (remain_draw + " and " + pricesList.length );
+                if(remain_draw <= 0){
+                    alert("Đã xổ hết phiếu, dừng chương trình");
+                    return false;
+                }
+                if(iCount >= pricesList.length){
+                    alert("Đã xổ đủ giải, dừng chương trình");
+                    return false;
+                }
+                if(isRunning == true){
+                    stop();
+                } else {
+                    start();
+                }
+            }
+
+            function storeResult(){
+                if (typeof(Storage) !== "undefined") {
+
+                    localStorage.setItem("luckyNumberProgram", JSON.stringify(resultList));
+                    localStorage.setItem("luckyNumberProgram2", JSON.stringify(resultMatrix));
+
+                }
+            }
+
+            function storeConfig(){
+                config["title"] = $('#cfg_title').val();
+                config["min"] = MIN;
+                config["max"] = MAX;
+                var num_display = $('#cfg_num_display_text').val();
+                config["numDisplay"]=num_display;
+                var strList = $('#cfg_excluded_combo').val();
+                config["excludedList"]=strList;
+
+                var first = document.getElementById('pricesList');
+                var options = first.innerHTML;
+                config["pricesList"]=options;
+
+                //alert(JSON.stringify(config));
+
+                if (typeof(Storage) !== "undefined") {
+
+                    localStorage.setItem("luckyNumberProgram_config", JSON.stringify(config));
+
+                }
+            }
+
+            function clearConfig(){
+                if (typeof(Storage) !== "undefined") {
+
+                    localStorage.removeItem("luckyNumberProgram_config");
+
+                }
+            }
+
+            function loadConfig(){
+
+                if (typeof(Storage) !== "undefined") {
+
+                    config = JSON.parse(localStorage.getItem("luckyNumberProgram_config"));
+                }
+
+                if(config != null && config != undefined) {
+
+                    $('#cfg_title').val(config["title"]);
+                    MIN = config["min"];
+                    MAX = config["max"];
+
+                    $('#cfg_min_text').val(MIN);
+                    $('#cfg_max_text').val(MAX);
+
+                    var num_display = config["numDisplay"];
+                    $('#cfg_num_display_text').val(num_display);
+
+                    var strList = config["excludedList"];
+                    $('#cfg_excluded_combo').val(strList);
+
+                    var first = document.getElementById('pricesList');
+                    first.innerHTML = config["pricesList"];
+
+                } else {
+                    config = {};
+                }
+            }
+
+            function loadResult(){
+                if (typeof(Storage) !== "undefined") {
+
+                    resultList = JSON.parse(localStorage.getItem("luckyNumberProgram"));
+                    //alert(resultList);
+                    if(resultList == undefined || resultList == null){
+                        resultList = [];
+                        //alert("abc:" + resultList);
+                    }
+
+                    var ret = makeResultTable(resultList);
+
+                    setContent("result_table",ret);
+                    setContent("priceName",pricesList[iCount].name);
+                    //excludedList.push(number);
+
+                    updateStatistic();
+
+                } else {
+                    alert("Chưa có kết quả đã lưu trướ đó");
+                }
+            }
+
+
+
+            function loadResult2(){
+                if (typeof(Storage) !== "undefined") {
+
+                    resultMatrix = JSON.parse(localStorage.getItem("luckyNumberProgram2"));
+                    resultList = JSON.parse(localStorage.getItem("luckyNumberProgram"));
+                    //alert(resultList);
+                    if(resultMatrix == undefined || resultMatrix == null){
+                        resultMatrix = {};
+                        //alert("abc:" + resultList);
+                    }
+
+                    if(resultList == undefined || resultList == null){
+                        resultList = [];
+                        //alert("abc:" + resultList);
+                    }
+
+                    var ret = makeResultTable(resultList);
+
+                    setContent("result_table",ret);
+                    //setContent("priceName",pricesList[iCount].name);
+                    //excludedList.push(number);
+
+                    updateStatistic();
+
+                } else {
+                    alert("Chưa có kết quả đã lưu trước đó");
+                }
+            }
+
+            function clearResult(){
+                if (typeof(Storage) !== "undefined") {
+
+                    localStorage.removeItem("luckyNumberProgram");
+
+                }
+            }
+
+            $(document).ready(function(){
+
+
+
+                $("#cfg_min_text").keyup(function() {
+                    MIN = $("#cfg_min_text").val();
+
+                });
+
+                $("#cfg_min_text").change(function() {
+                    MIN = $("#cfg_min_text").val();
+                    //alert(MAX);
+                    if(MAX <= MIN){
+                        alert("Số nhỏ nhất phải nhỏ hơn số lớn nhất");
+                        $("#cfg_min_text").val(parseInt(MAX) -1);
+                    }
+
+
+                });
+
+                $("#cfg_max_text").keyup(function() {
+                    MAX = $("#cfg_max_text").val();
+                    if(MAX < 1){
+                        MAX = 1;
+                    }
+                    var zeroStr = makeZero(MAX);
+                    setResult(zeroStr);
+                });
+
+                $("#cfg_max_text").change(function() {
+                    MAX = $("#cfg_max_text").val();
+                    if(MAX <= MIN){
+                        alert("Số nhỏ nhất phải nhỏ hơn số lớn nhất");
+                        $("#cfg_max_text").val(parseInt(MIN) + 1);
+                    }
+
+                });
+
+                $('#draw_by_digit').click(function() {
+
+
+                    isDrawByDigit = this.checked;
+                    if(isDrawByDigit){
+                        var priceName = getNextPriceName(resultMatrix);
+                        if(priceName != null) {
+                            RANDOM = getRandomInt(parseInt(MIN),parseInt(MAX));
+                            setContent("priceName",priceName);
+                            setResult(makeZero(MAX, '?'), isDrawByDigit);
+                            byDigitCount = 0;
+                        } else {
+                            alert("Giải này đã được quay, xin chọn giải khác để quay từng số");
+                            $('#draw_by_digit').attr('checked', false);
+                            isDrawByDigit = this.checked;
+                        }
+                    } else {
+                        if(curPriceName != undefined) {
+                            setResult(curResult, isDrawByDigit);
+
+                            setContent("priceName", curPriceName);
+                        } else {
+                            setContent("priceName","Giải chưa quay");
+                            setResult(makeZero(MAX), isDrawByDigit);
+                        }
+                    }
+                    //alert(curResult);
+                    //alert(isDrawByDigit);
+                });
+
+                pricesList = createPriceList();
+                //priceMatrix = createPriceList2()
+                //alert(JSON.stringify(priceMatrix));
+                setContent("priceName","Giải chưa quay");
+
+
+            });
+
+            $('#runningPricesList').keydown(function(e)
+            {
+
+                if (e.keyCode===13)
+                {
+                    unsetFocus();
+                }
+
+            });
+
+            $(document).keyup(function(e) {
+
+                if(e.keyCode === 13) {
+                    unsetFocus();
+                    if(isStarted) {
+                        if(!isDrawByDigit)
+                            clickRun();
+                        // }
+
+                    }
+                }
+
+                if(e.keyCode  === 27) {
+                    if(isStarted) {
+                        var r = confirm("Dừng xổ số?");
+                        if (r == true) {
+                            stopDrawing();
+                        }
+
+                    }
+                }
+            });
+
+            function addPrice(){
+
+                name = $('#cfg_price_name').val();
+                number = $('#cfg_price_num').val();
+                $('#pricesList').append($("<option></option>")
+                        .attr("value",number)
+                        .text(number + " " + name));
+                return false;
+            }
+
+            function removePrice(){
+
+                $('#pricesList option:selected').remove();
+
+                return false;
+            }
+
+            function createPriceList(){
+                var prices = [];
+                var count = 1;
+
+
+                $("#pricesList option" ).each(function() {
+                    var value = $(this).val();
+                    var original = this.text;
+                    var name = original.substr(original.indexOf(" ") + 1);
+
+                    //alert(val + name);
+                    for(var i = 1; i <= value ; i++) {
+                        var price = {};
+                        price["name"] = name +  " (Lần: " + i + ")";
+                        price["short_name"] = count + "." + i;
+                        prices.push(price);
+                    }
+                    count++;
+                });
+
+                return prices;
+            }
+            function copyPriceCombo(){
+                var first = document.getElementById('pricesList');
+                var options = first.innerHTML;
+
+                var second = document.getElementById('runningPricesList');
+                //var options = second.innerHTML + options;
+
+                second.innerHTML = options;
+            }
+
+            function createPriceList2(){
+                var prices = {};
+                var count = 1;
+
+                $("#pricesList option" ).each(function() {
+                    var value = $(this).val();
+                    var text = this.text;
+                    var name = text.substr(text.indexOf(" ") + 1);
+
+                    var price = {};
+
+                    price["title"] = name;
+                    price["num"]= value;
+                    price["order"]= count;
+                    price["result"] = [];
+                    /*
+                     //alert(val + name);
+                     for(var i = 1; i <= value ; i++) {
+                     var result = {};
+                     result["name"] = name + "("+value+")" + " lần: " + i;
+                     result["short_name"] = count + "." + i;
+                     price[text]["result"].push(result);
+                     }*/
+                    count++;
+
+                    prices[text] = price;
+                });
+
+                return prices;
+            }
+
+            function pushResult(price_name,price_result){
+                price = {};
+                price["name"] = price_name;
+                price["result"] = price_result;
+                resultList.push(price);
+
+            }
+
+            function checkPriceComplete(priceMatrix){
+                var index  = $("#runningPricesList option:selected").text();
+
+                var price = {};
+                var nextPrice = priceMatrix[index]["result"].length + 1;
+                if(nextPrice <= priceMatrix[index]["num"]) {
+                    return null;
+                } else {
+                    return "Đã quay đủ giải cho giải: " + priceMatrix[index].title + ", Xin chọn giải khác để quay tiếp";
+
+                }
+            }
+
+            function pushResult2(priceMatrix,price_result){
+                var index  = $("#runningPricesList option:selected").text();
+
+                var price = {};
+                var nextPrice = priceMatrix[index]["result"].length + 1;
+                if(nextPrice <= priceMatrix[index]["num"]) {
+                    price["short_name"] = priceMatrix[index].order + "." + nextPrice;
+                    price["name"] = priceMatrix[index].title + " (Lần: " + nextPrice + ")";
+                    price["result"] = price_result;
+
+                    priceMatrix[index]["result"].push(price);
+                    resultList.push(price);
+                    return price["name"];
+                } else {
+
+                    return null;
+                }
+                //alert(JSON.stringify(priceMatrix));
+
+            }
+
+
+            function getNextPriceName(priceMatrix){
+                var index  = $("#runningPricesList option:selected").text();
+
+                var name;
+                var nextPrice = priceMatrix[index]["result"].length + 1;
+                if(nextPrice <= priceMatrix[index]["num"]) {
+
+                    name = priceMatrix[index].title + " (Lần: " + nextPrice + ")";
+
+                    return name;
+                } else {
+
+                    return null;
+                }
+
+
+            }
+
+
+            function checkNumberExist(){
+                var num = parseInt($('#exist_price_text').val());
+
+                if(num !=0){
+                    if(include(excludedList,num)){
+                        alert("Giải này đã tồn tại, xin vui lòng chọn số khác");
+                    } else {
+                        var r = confirm("Giải chưa tồn tại, bạn muốn thêm vào danh sách?");
+                        if (r == true) {
+                            drawNumber(num);
+                        }
+                    }
+                } else {
+                    alert("Vui lòng điền số cần kiểm tra");
+                }
+            }
+
+            function exportResult(){
+
+                var ret = "";
+                var tmp1 = "", tmp2 = "";
+                var num_display = $('#cfg_num_display_text').val();
+                var strList = $('#cfg_excluded_combo').val();
+                var strExcluded ="";
+
+                if(strList.length>0){
+                    var items = strList.split(',');
+                    for(var i = 0; i < items.length; i++){
+                        strExcluded += "<td>" + items[i] + "</td>";
+                    }
+                }
+
+                ret += "<tr><td class=\"result_th\">" + "Danh sách loại suy: </td>" + strExcluded ;
+                for(var index in resultMatrix){
+
+                    ret += "<tr><td class=\"result_th\">" + resultMatrix[index].title + ": </td>"
+                    for(var i = 0; i <resultMatrix[index]["result"].length; i++ ){
+                        ret += "<td class=\"result_td\">" + resultMatrix[index]["result"][i].result + "</td>";
+                    }
+                    ret += "</tr>";
+                }
+
+
+                return ret;
+            }
+
+            function exportResult2(){
+
+                var ret = "";
+                var tmp1 = "", tmp2 = "";
+                var num_display = $('#cfg_num_display_text').val();
+                var strList = $('#cfg_excluded_combo').val();
+                var strExcluded ="";
+
+                if(strList.length>0){
+                    var items = strList.split(',');
+                    for(var i = 0; i < items.length; i++){
+                        strExcluded += "<td>" + items[i] + "</td>";
+                    }
+                }
+
+                ret += "Danh sách loại suy: ," + strList +"\n" ;
+                for(var index in resultMatrix){
+
+                    ret += resultMatrix[index].title + ": "
+                    for(var i = 0; i <resultMatrix[index]["result"].length; i++ ){
+                        ret += "," + resultMatrix[index]["result"][i].result ;
+                    }
+                    ret += "\n";
+                }
+
+
+                return ret;
+            }
+
+
+            function fnExcelReport()
+            {
+                var result = exportResult();
+                var tab_text="<meta charset=\"utf-8\"> <table border='2px'><tr bgcolor='#87AFC6'>";
+
+                tab_text += result;
+                tab_text += "</table>";
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE ");
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+                {
+                    txtArea1.document.open("txt/html","replace");
+                    txtArea1.document.write(tab_text);
+                    txtArea1.document.close();
+                    txtArea1.focus();
+                    sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+                }
+                else {                //other browser not tested on IE 11
+                    //alert(tab_text);
+                    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+                }
+
+                return (sa);
+            }
+
+        </script>         
+    </body>
+</html>
